@@ -21,11 +21,14 @@ import com.sky.result.Result;
 import com.sky.service.SetmealService;
 import com.sky.vo.SetmealVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/admin/setmeal")
 @Slf4j
+@Tag(name = "套餐管理")
 public class SetmealController {
 
     @Autowired
@@ -33,10 +36,11 @@ public class SetmealController {
 
     /**
      * 新增套餐
-     * 
+     *
      * @param setmealDTO
      * @return
      */
+    @Operation(summary = "新增套餐")
     @PostMapping
     @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.categoryId")
     public Result<String> save(@RequestBody SetmealDTO setmealDTO) {
@@ -47,10 +51,11 @@ public class SetmealController {
 
     /**
      * 分页查询
-     * 
+     *
      * @param setmealPageQueryDTO
      * @return
      */
+    @Operation(summary = "分页查询套餐")
     @GetMapping("/page")
     public Result<PageResult<SetmealVO>> page(SetmealPageQueryDTO setmealPageQueryDTO) {
         log.info("分页查询套餐列表，请求参数：{}", setmealPageQueryDTO);
@@ -60,10 +65,11 @@ public class SetmealController {
 
     /**
      * 删除套餐
-     * 
+     *
      * @param ids
      * @return
      */
+    @Operation(summary = "删除套餐")
     @DeleteMapping
     @CacheEvict(cacheNames = "setmealCache", allEntries = true)
     public Result<String> delete(@RequestParam List<Long> ids) {
@@ -74,10 +80,11 @@ public class SetmealController {
 
     /**
      * 根据id查询套餐
-     * 
+     *
      * @param id
      * @return
      */
+    @Operation(summary = "根据id查询套餐")
     @GetMapping("/{id}")
     public Result<SetmealVO> getById(@PathVariable Long id) {
         log.info("根据id查询套餐，id：{}", id);
@@ -87,10 +94,11 @@ public class SetmealController {
 
     /**
      * 修改套餐
-     * 
+     *
      * @param setmealDTO
      * @return
      */
+    @Operation(summary = "修改套餐")
     @PutMapping
     @CacheEvict(cacheNames = "setmealCache", allEntries = true)
     public Result<String> update(@RequestBody SetmealDTO setmealDTO) {
@@ -101,11 +109,12 @@ public class SetmealController {
 
     /**
      * 启用或停用套餐
-     * 
+     *
      * @param status
      * @param id
      * @return
      */
+    @Operation(summary = "启用或停用套餐")
     @PostMapping("/status/{status}")
     @CacheEvict(cacheNames = "setmealCache", allEntries = true)
     public Result<String> startOrStop(@PathVariable Integer status, Long id) {

@@ -6,6 +6,8 @@ import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/category")
 @Slf4j
+@Tag(name = "分类管理")
 public class CategoryController {
 
     @Autowired
@@ -24,10 +27,11 @@ public class CategoryController {
 
     /**
      * 新增分类
-     * 
+     *
      * @param categoryDTO
      * @return
      */
+    @Operation(summary = "新增分类")
     @PostMapping
     public Result<String> save(@RequestBody CategoryDTO categoryDTO) {
         log.info("新增分类：{}", categoryDTO);
@@ -37,10 +41,11 @@ public class CategoryController {
 
     /**
      * 分类分页查询
-     * 
+     *
      * @param categoryPageQueryDTO
      * @return
      */
+    @Operation(summary = "分类分页查询")
     @GetMapping("/page")
     public Result<PageResult<Category>> page(CategoryPageQueryDTO categoryPageQueryDTO) {
         log.info("分页查询：{}", categoryPageQueryDTO);
@@ -50,10 +55,11 @@ public class CategoryController {
 
     /**
      * 删除分类
-     * 
+     *
      * @param id
      * @return
      */
+    @Operation(summary = "删除分类")
     @DeleteMapping
     public Result<String> deleteById(Long id) {
         log.info("删除分类：{}", id);
@@ -63,10 +69,11 @@ public class CategoryController {
 
     /**
      * 修改分类
-     * 
+     *
      * @param categoryDTO
      * @return
      */
+    @Operation(summary = "修改分类")
     @PutMapping
     public Result<String> update(@RequestBody CategoryDTO categoryDTO) {
         categoryService.update(categoryDTO);
@@ -75,11 +82,12 @@ public class CategoryController {
 
     /**
      * 启用、禁用分类
-     * 
+     *
      * @param status
      * @param id
      * @return
      */
+    @Operation(summary = "启用、禁用分类")
     @PostMapping("/status/{status}")
     public Result<String> startOrStop(@PathVariable("status") Integer status, Long id) {
         categoryService.startOrStop(status, id);
@@ -88,10 +96,11 @@ public class CategoryController {
 
     /**
      * 根据类型查询分类
-     * 
+     *
      * @param type
      * @return
      */
+    @Operation(summary = "根据类型查询分类")
     @GetMapping("/list")
     public Result<List<Category>> list(Integer type) {
         List<Category> list = categoryService.list(type);

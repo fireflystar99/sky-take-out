@@ -18,11 +18,14 @@ import com.sky.service.UserService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.UserLoginVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user/user")
 @Slf4j
+@Tag(name = "用户管理")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -36,6 +39,7 @@ public class UserController {
      * @param userLoginDTO
      * @return
      */
+    @Operation(summary = "微信登录")
     @PostMapping("/login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
         log.info("用户登录： userLoginDTO:{}", userLoginDTO);

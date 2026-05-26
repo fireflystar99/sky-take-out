@@ -4,12 +4,17 @@ import com.sky.context.BaseContext;
 import com.sky.entity.AddressBook;
 import com.sky.result.Result;
 import com.sky.service.AddressBookService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user/addressBook")
+@Tag(name = "地址簿")
 public class AddressBookController {
 
     @Autowired
@@ -20,6 +25,7 @@ public class AddressBookController {
      *
      * @return
      */
+    @Operation(summary = "查询所有地址")
     @GetMapping("/list")
     public Result<List<AddressBook>> list() {
         AddressBook addressBook = new AddressBook();
@@ -34,12 +40,14 @@ public class AddressBookController {
      * @param addressBook
      * @return
      */
+    @Operation(summary = "新增地址")
     @PostMapping
     public Result<String> save(@RequestBody AddressBook addressBook) {
         addressBookService.save(addressBook);
         return Result.success();
     }
 
+    @Operation(summary = "根据id查询地址")
     @GetMapping("/{id}")
     public Result<AddressBook> getById(@PathVariable Long id) {
         AddressBook addressBook = addressBookService.getById(id);
@@ -52,6 +60,7 @@ public class AddressBookController {
      * @param addressBook
      * @return
      */
+    @Operation(summary = "修改地址")
     @PutMapping
     public Result<String> update(@RequestBody AddressBook addressBook) {
         addressBookService.update(addressBook);
@@ -64,6 +73,7 @@ public class AddressBookController {
      * @param addressBook
      * @return
      */
+    @Operation(summary = "设置默认地址")
     @PutMapping("/default")
     public Result<String> setDefault(@RequestBody AddressBook addressBook) {
         addressBookService.setDefault(addressBook);
@@ -76,6 +86,7 @@ public class AddressBookController {
      * @param id
      * @return
      */
+    @Operation(summary = "删除地址")
     @DeleteMapping
     public Result<String> deleteById(Long id) {
         addressBookService.deleteById(id);
@@ -85,6 +96,7 @@ public class AddressBookController {
     /**
      * 查询默认地址
      */
+    @Operation(summary = "查询默认地址")
     @GetMapping("default")
     public Result<AddressBook> getDefault() {
         // SQL:select * from address_book where user_id = ? and is_default = 1

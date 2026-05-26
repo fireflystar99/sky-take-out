@@ -3,6 +3,8 @@ package com.sky.controller.admin;
 import java.io.IOException;
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/admin/common")
 @Slf4j
+@Tag(name = "通用接口")
 public class CommonController {
 
     /**
      * 上传图片
-     * 
+     *
      * @param file
      * @return
      */
+    @Operation(summary = "上传图片")
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) {
         log.info("上传图片：{}", file);

@@ -15,17 +15,21 @@ import com.sky.vo.SalesTop10ReportVO;
 import com.sky.vo.TurnoverReportVO;
 import com.sky.vo.UserReportVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/admin/report")
 @Slf4j
+@Tag(name = "数据报表")
 public class ReportController {
 
     @Autowired
     private ReportService reportService;
 
+    @Operation(summary = "营业额统计")
     @GetMapping("/turnoverStatistics")
     public Result<TurnoverReportVO> turnoverStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
@@ -36,11 +40,12 @@ public class ReportController {
 
     /**
      * 用户数据统计
-     * 
+     *
      * @param begin
      * @param end
      * @return
      */
+    @Operation(summary = "用户统计")
     @GetMapping("/userStatistics")
     public Result<UserReportVO> userStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
@@ -51,11 +56,12 @@ public class ReportController {
 
     /**
      * 订单数据统计
-     * 
+     *
      * @param begin
      * @param end
      * @return
      */
+    @Operation(summary = "订单统计")
     @GetMapping("/ordersStatistics")
     public Result<OrderReportVO> orderStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
@@ -66,11 +72,12 @@ public class ReportController {
 
     /**
      * 销量排名统计
-     * 
+     *
      * @param begin
      * @param end
      * @return
      */
+    @Operation(summary = "销量排名")
     @GetMapping("/top10")
     public Result<SalesTop10ReportVO> top10(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
@@ -80,9 +87,10 @@ public class ReportController {
 
     /**
      * 导出运营报表
-     * 
+     *
      * @param resp
      */
+    @Operation(summary = "导出报表")
     @GetMapping("/export")
     public void exportExcel(HttpServletResponse resp) {
         reportService.exportExcel(resp);
