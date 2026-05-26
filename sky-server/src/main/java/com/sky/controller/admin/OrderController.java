@@ -18,8 +18,12 @@ import com.sky.service.OrderService;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController("adminOrderController")
 @RequestMapping("/admin/order")
+@Tag(name = "订单管理")
 public class OrderController {
 
     @Autowired
@@ -31,6 +35,7 @@ public class OrderController {
      * @param ordersPageQueryDTO
      * @return
      */
+    @Operation(summary = "订单搜索")
     @GetMapping("/conditionSearch")
     public Result<PageResult<OrderVO>> conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO) {
         PageResult<OrderVO> pageResult = orderService.conditionSearch(ordersPageQueryDTO);
@@ -42,6 +47,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "订单状态统计")
     @GetMapping("/statistics")
     public Result<OrderStatisticsVO> statistics() {
         OrderStatisticsVO orderStatisticsVO = orderService.statistics();
@@ -54,6 +60,7 @@ public class OrderController {
      * @param id
      * @return
      */
+    @Operation(summary = "订单详情")
     @GetMapping("/details/{id}")
     public Result<OrderVO> details(@PathVariable("id") Long id) {
         OrderVO orderVO = orderService.details(id);
@@ -65,6 +72,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "接单")
     @PutMapping("/confirm")
     public Result<String> confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
         orderService.confirm(ordersConfirmDTO);
@@ -76,6 +84,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "拒单")
     @PutMapping("/rejection")
     public Result<String> rejection(@RequestBody OrdersRejectionDTO ordersRejectionDTO) throws Exception {
         orderService.rejection(ordersRejectionDTO);
@@ -87,6 +96,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "取消订单")
     @PutMapping("/cancel")
     public Result<String> cancel(@RequestBody OrdersCancelDTO ordersCancelDTO) throws Exception {
         orderService.cancel(ordersCancelDTO);
@@ -98,6 +108,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "派送订单")
     @PutMapping("/delivery/{id}")
     public Result<String> delivery(@PathVariable("id") Long id) {
         orderService.delivery(id);
@@ -109,6 +120,7 @@ public class OrderController {
      *
      * @return
      */
+    @Operation(summary = "完成订单")
     @PutMapping("/complete/{id}")
     public Result<String> complete(@PathVariable("id") Long id) {
         orderService.complete(id);

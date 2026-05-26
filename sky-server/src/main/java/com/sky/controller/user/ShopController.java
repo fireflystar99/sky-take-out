@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sky.result.Result;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController("userShopController")
 @RequestMapping("/user/shop")
 @Slf4j
+@Tag(name = "店铺状态")
 public class ShopController {
 
     @Autowired
@@ -22,9 +25,10 @@ public class ShopController {
 
     /**
      * 获取店铺状态 1: 营业 0: 休息
-     * 
+     *
      * @return
      */
+    @Operation(summary = "获取店铺营业状态")
     @GetMapping("/status")
     public Result<Integer> getShopStatus() {
         Integer status = Optional.ofNullable((Integer) redisTemplate.opsForValue().get("SHOP_STATUS")).orElse(0);

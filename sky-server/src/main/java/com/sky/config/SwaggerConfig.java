@@ -50,13 +50,12 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("XXX用户系统API")
+                        .title("苍穹外卖项目接口文档")
                         .version("1.0")
-
-                        .description("Knife4j集成springdoc-openapi示例")
-                        .termsOfService("http://doc.xiaominfo.com")
+                        .description("苍穹外卖项目后台服务API接口")
+                        .termsOfService("http://localhost:8080")
                         .license(new License().name("Apache 2.0")
-                                .url("http://doc.xiaominfo.com")));
+                                .url("https://www.apache.org/licenses/LICENSE-2.0")));
     }
 
 }

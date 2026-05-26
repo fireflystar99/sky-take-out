@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sky.result.Result;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController("adminShopController")
 @RequestMapping("/admin/shop")
 @Slf4j
+@Tag(name = "店铺管理")
 public class ShopController {
 
     @Autowired
@@ -24,10 +27,11 @@ public class ShopController {
 
     /**
      * 设置店铺状态 1: 营业 0: 休息
-     * 
+     *
      * @param status
      * @return
      */
+    @Operation(summary = "设置店铺营业状态")
     @PutMapping("/{status}")
     public Result<String> setShopStatus(@PathVariable Integer status) {
         log.info("设置店铺状态: {}", status == 1 ? "营业" : "休息");
@@ -37,9 +41,10 @@ public class ShopController {
 
     /**
      * 获取店铺状态 1: 营业 0: 休息
-     * 
+     *
      * @return
      */
+    @Operation(summary = "获取店铺营业状态")
     @GetMapping("/status")
     public Result<Integer> getShopStatus() {
         Integer status = (Integer) Optional.ofNullable(redisTemplate.opsForValue().get("SHOP_STATUS")).orElse(0);

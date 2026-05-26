@@ -12,7 +12,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver # 驱动名称
     url: jdbc:mysql://localhost:3306/sky_take_out
     username: root
-    password: sql_1
+    password: 050309
     type: com.alibaba.druid.pool.DruidDataSource
   data:
     redis:
@@ -32,7 +32,7 @@ springdoc:
   group-configs:
     - group: "default"
       paths-to-match: "/**"
-      packages-to-scan: com.github.xiaoymin.boot3
+      packages-to-scan: com.sky.controller
   default-flat-param-object: true
 
 knife4j:

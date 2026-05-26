@@ -15,11 +15,14 @@ import com.sky.entity.ShoppingCart;
 import com.sky.result.Result;
 import com.sky.service.ShoppingCartService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user/shoppingCart")
 @Slf4j
+@Tag(name = "购物车")
 public class ShoppingCartController {
 
     @Autowired
@@ -27,10 +30,11 @@ public class ShoppingCartController {
 
     /**
      * 添加购物车
-     * 
+     *
      * @param shoppingCartDTO
      * @return
      */
+    @Operation(summary = "添加购物车")
     @PostMapping("/add")
     public Result<String> add(@RequestBody ShoppingCartDTO shoppingCartDTO) {
         log.info("添加购物车：{}", shoppingCartDTO);
@@ -40,9 +44,10 @@ public class ShoppingCartController {
 
     /**
      * 查看购物车
-     * 
+     *
      * @return
      */
+    @Operation(summary = "查看购物车")
     @GetMapping("/list")
     public Result<List<ShoppingCart>> list() {
         List<ShoppingCart> shopList = shoppingCartService.showShoppingCart();
@@ -51,9 +56,10 @@ public class ShoppingCartController {
 
     /**
      * 清空购物车
-     * 
+     *
      * @return
      */
+    @Operation(summary = "清空购物车")
     @DeleteMapping("/clean")
     public Result<String> clean() {
         shoppingCartService.cleanShoppingCart();
@@ -62,10 +68,11 @@ public class ShoppingCartController {
 
     /**
      * 删除购物车中一个商品
-     * 
+     *
      * @param shoppingCartDTO
      * @return
      */
+    @Operation(summary = "删除购物车中一个商品")
     @PostMapping("/sub")
     public Result<String> sub(@RequestBody ShoppingCartDTO shoppingCartDTO) {
         log.info("减少购物车：{}", shoppingCartDTO);

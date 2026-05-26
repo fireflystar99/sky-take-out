@@ -5,6 +5,10 @@ import com.sky.entity.Setmeal;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
 import com.sky.vo.DishItemVO;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,7 @@ import java.util.List;
 
 @RestController("userSetmealController")
 @RequestMapping("/user/setmeal")
+@Tag(name = "套餐浏览")
 public class SetmealController {
     @Autowired
     private SetmealService setmealService;
@@ -25,6 +30,7 @@ public class SetmealController {
      * @param categoryId
      * @return
      */
+    @Operation(summary = "条件查询套餐")
     @GetMapping("/list")
     @Cacheable(cacheNames = "setmealCache", key = "#categoryId") // key: setmealCache::categoryId
     public Result<List<Setmeal>> list(Long categoryId) {
@@ -42,6 +48,7 @@ public class SetmealController {
      * @param id
      * @return
      */
+    @Operation(summary = "查询套餐菜品")
     @GetMapping("/dish/{id}")
     public Result<List<DishItemVO>> dishList(@PathVariable("id") Long id) {
         List<DishItemVO> list = setmealService.getDishItemById(id);

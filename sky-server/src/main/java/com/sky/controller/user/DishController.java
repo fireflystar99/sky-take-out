@@ -5,7 +5,10 @@ import com.sky.entity.Dish;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
-// import lombok.extern.slf4j.Slf4j;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +18,7 @@ import java.util.List;
 
 @RestController("userDishController")
 @RequestMapping("/user/dish")
-// @Slf4j
+@Tag(name = "菜品浏览")
 public class DishController {
     @Autowired
     private DishService dishService;
@@ -29,6 +32,7 @@ public class DishController {
      * @param categoryId
      * @return
      */
+    @Operation(summary = "根据分类id查询菜品")
     @GetMapping("/list")
     @SuppressWarnings("unchecked")
     public Result<List<DishVO>> list(Long categoryId) {

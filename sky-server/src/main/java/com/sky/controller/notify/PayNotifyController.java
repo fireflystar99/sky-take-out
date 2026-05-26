@@ -7,6 +7,8 @@ import com.sky.properties.WeChatProperties;
 import com.sky.service.OrderService;
 import com.wechat.pay.contrib.apache.httpclient.util.AesUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/notify")
 @Slf4j
+@Tag(name = "支付回调")
 public class PayNotifyController {
     @Autowired
     private OrderService orderService;
@@ -35,6 +38,7 @@ public class PayNotifyController {
      *
      * @param request
      */
+    @Operation(summary = "支付成功回调")
     @RequestMapping("/paySuccess")
     public void paySuccessNotify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 读取数据
@@ -104,7 +108,7 @@ public class PayNotifyController {
 
     /**
      * 给微信响应
-     * 
+     *
      * @param response
      */
     private void responseToWeixin(HttpServletResponse response) throws Exception {
